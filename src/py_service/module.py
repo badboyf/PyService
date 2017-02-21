@@ -27,3 +27,4 @@ class User(Base):
     password = Column(String(45))
     create_at = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
     update_at = Column(DateTime)
+    
