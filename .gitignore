@@ -2,4 +2,6 @@ venv/
 *.pyc
 .project
 .settings/org.eclipse.core.resources.prefs
-./src/service/*.pyc
+src/service/*.pyc
+src/*.pyc
+src/service/response/*.pyc
