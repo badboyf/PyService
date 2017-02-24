@@ -1,0 +1,8 @@
+*.pyc
+/module.pyc
+/person_api.pyc
+/person_repository.pyc
+/sqlalchemy_db.pyc
+/user.pyc
+/user_repository.pyc
+/util_class.pyc
