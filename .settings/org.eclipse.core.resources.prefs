@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
-encoding//src/py_service/module.py=utf-8
-encoding//src/py_service/sqlalchemy_db.py=utf-8
+encoding//src/service/module.py=utf-8
+encoding//src/service/sqlalchemy_db.py=utf-8
