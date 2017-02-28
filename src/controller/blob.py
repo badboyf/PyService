@@ -1,6 +1,6 @@
 # /usr/bin/python
 # coding=utf-8
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 import json
 
 from repository import blob_repository, type_repository, sort_repository, user_repository
@@ -9,15 +9,12 @@ from module import Blob, Sort
 from util.util import res
 from response.blob_response import UserBlobsResponse, BlobDetailResponse, TypeResource
 
-from response.default import DefaultResponse, ListResponse
-
 blob_blue = Blueprint('blob', __name__)
 
 @blob_blue.route('/write', methods=['POST'])
 def write():
   req = WriteBlobRequest(**json.loads(request.data))
   type_id = type_repository.get_type_by_id(type_id=req.type_id, user_id=req.user_id, check=True).id
-  
   
   blob = Blob(user_id=req.user_id, title=req.title, content=req.content, update_at=req.update_at)
   blob_id = blob_repository.create(blob)
@@ -30,7 +27,7 @@ def write():
 def getUserBlobs(user_id):
   type_id = request.args.get('type_id', None)
   user_repository.get_user_by_id(user_id, check=True)
-  response = ListResponse()
+  response = []
   for blob in blob_repository.get_blobs_by_user_id(user_id, type_id):
     response.append(UserBlobsResponse(blob))
   return res(data=response)
@@ -42,13 +39,12 @@ def getBlobDetail(blob_id):
     detail = d.get(blob.id)
     if detail == None:
       detail = BlobDetailResponse(blob)
-    types = detail.types
-    types.append(TypeResource(blob_type))
+    detail.get('types').append(TypeResource(blob_type))
     d.setdefault(blob.id, detail)
-  
-  response = ListResponse()
+
+  response = []
   for key in d.keys():
     response.append(d.get(key))
-  
+  print response
   return res(data=response)
 

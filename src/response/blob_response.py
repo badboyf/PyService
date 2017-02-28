@@ -1,24 +1,24 @@
 #!/usr/bin/env python
-#coding=utf-8
+# coding=utf-8
 from util.util import date_formate
 from response.default import ListResponse
 
-class UserBlobsResponse(object):
+class UserBlobsResponse(dict):
   def __init__(self, blob):
-    self.id = blob.id
-    self.title = blob.title
-    self.content = blob.content
-    self.like = blob.like
-    self.unlike = blob.unlike
-    self.create_at = date_formate(blob.create_at)
+    self.setdefault('id', blob.id)
+    self.setdefault('title', blob.title)
+    self.setdefault('content', blob.content)
+    self.setdefault('like', blob.like)
+    self.setdefault('unlike', blob.unlike)
+    self.setdefault('create_at', date_formate(blob.create_at))
     
-class BlobDetailResponse(object):
+class BlobDetailResponse(dict):
   def __init__(self, blob):
-    self.blob = UserBlobsResponse(blob).__dict__
-    self.types = ListResponse()
+    self.setdefault('blob', UserBlobsResponse(blob))
+    self.setdefault('types', [])
   
-class TypeResource(object):
+class TypeResource(dict):
   def __init__(self, blob_type):
-    self.id=blob_type.id
-    self.name=blob_type.name
-    self.create_at=date_formate(blob_type.create_at)
+    self.setdefault('id', blob_type.id)
+    self.setdefault('name', blob_type.name)
+    self.setdefault('create_at', date_formate(blob_type.create_at))
