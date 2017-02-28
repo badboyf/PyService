@@ -47,6 +47,16 @@ def exist_user(username):
   else :
     return False
   
+def password_right(username=None, password=None):
+  count = session.query(User).filter(User.username==username).filter(User.password==password).count()
+  if count == 1:
+    return True
+  elif count == 0:
+    return False
+  else:
+    raise RunException('count the same username and password more than one')
+  
+  
 def get_user_by_username(username):
   conn = connDB()
   curs = conn.cursor()
@@ -72,7 +82,6 @@ def get_all():
   return jsonify(res_list)
 
 def get_user_by_name_psword(username=None, password=None):
-#   count = session.query(func.count('*')).select_from(module.User).scalar()
   users = []
   for user in session.query(User).filter(User.username == username).filter(User.password == password).all():
     users.append(user)

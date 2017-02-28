@@ -3,8 +3,9 @@
 
 from sqlalchemy import Table, Column, Integer, String, Date, Float, create_engine  
 from sqlalchemy.orm import sessionmaker
+from config import db_ip,db_port, db_name, db_pswd, db_schema 
 
-DB_URI = r'mysql://root:root@192.168.1.109:3306/fzk'
+DB_URI = 'mysql://%s:%s@%s:%d/%s' % (db_name, db_pswd, db_ip, db_port, db_schema)
 def get_DB():
   db = create_engine(DB_URI)
   return db
